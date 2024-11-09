@@ -22,7 +22,12 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyAwaited<T> = any
+// Promise<T>是包含then方法和catch方法的，但考虑到可能是自己实现的类promise，类promise中只有then方法，所以需要用PromiseLike<T>
+type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U>
+  ? U extends PromiseLike<any>
+    ? MyAwaited<U>
+    : U
+  : never;
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

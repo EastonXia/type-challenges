@@ -20,7 +20,11 @@
 
 /* _____________ 你的代码 _____________ */
 
-type TupleToObject<T extends readonly any[]> = any
+// 该题目用到了indexed access特性
+// T[number] 表示数组中所有数字下标对应的值，类似于js中的对象取值
+type TupleToObject<T extends readonly (string| symbol | number)[]> = {
+  [P in T[number]]: P;
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

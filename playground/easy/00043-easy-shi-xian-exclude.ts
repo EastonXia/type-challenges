@@ -20,7 +20,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyExclude<T, U> = any
+// 联合类型进行extends的时候,会拆开一个一个地去extends
+// 'a' | 'b' | 'c', 'a' = 'a' extends 'a' ｜ 'b' extends 'a' ｜ 'c' extends 'c
+type MyExclude<T, U> = T extends U ? never : T;
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

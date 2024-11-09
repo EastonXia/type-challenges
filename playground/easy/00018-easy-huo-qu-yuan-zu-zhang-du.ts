@@ -22,12 +22,12 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Length<T> = any
+type Length<T extends readonly any[]> = T['length'];
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
-const tesla = ['tesla', 'model 3', 'model X', 'model Y'] as const
+const tesla = ['tesla', 'model 3', 'model X', 'model Y'] as const // 这里出现了一个 as const 用法，值得注意
 const spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT'] as const
 
 type cases = [

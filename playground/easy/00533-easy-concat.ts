@@ -18,7 +18,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Concat<T, U> = any
+// 这里用 readonly unknown[] 是为了过tuple的检测
+// tuple的特点是长度跟元素都是已知的，而且里面的元素都是readonly
+type Concat<T extends readonly unknown[], U extends readonly unknown[]> = [...T, ...U];
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

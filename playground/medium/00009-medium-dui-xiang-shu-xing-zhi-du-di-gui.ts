@@ -36,7 +36,10 @@
 
 /* _____________ 你的代码 _____________ */
 
-type DeepReadonly<T> = any
+// keyof T extends never 用来判断 T 是否是一个不可索引的类型（如基本类型 string、number 等，他们都没有索引）
+type DeepReadonly<T> =  keyof T extends never
+                        ? T
+                        : { readonly [k in keyof T]: DeepReadonly<T[k]> };
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

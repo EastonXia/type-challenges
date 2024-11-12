@@ -20,7 +20,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type TupleToUnion<T> = any
+// type TupleToUnion<T extends readonly any[]> = T extends [infer First , ...infer Rest] ? First | TupleToUnion<Rest> : never
+// type TupleToUnion<T extends readonly any[]> = T extends Array<infer R> ? R : never;
+type TupleToUnion<T extends readonly any[]> = T[number];
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -24,7 +24,8 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Last<T extends any[]> = any
+// ...infer_ ，告诉ts无需关注前面变量是什么
+type Last<T extends any[]> =  T extends [...infer _, infer Last] ? Last : never
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

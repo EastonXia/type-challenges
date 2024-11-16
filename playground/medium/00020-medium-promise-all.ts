@@ -23,7 +23,13 @@
 
 /* _____________ 你的代码 _____________ */
 
-declare function PromiseAll(values: any): any
+// 可以用{}表示数组,只要key是数字类型就可以，不用死磕数组
+// 例子1 2 3都是元组，不是数组
+// Awaited是用来推断promise<T>的T，这里为什么要用Awaited？
+// 因为第四个例子中是加入了泛型推导‘Array<number | Promise<number>’，所以最后的结果是（number | Promise<number>）[]
+// 所以要用Awaited来使结果保证是number
+declare function PromiseAll<T extends any[]>(values: readonly [...T]):
+Promise<{ [K in keyof T]: T[K] extends Promise<infer R> ? R : Awaited<T[K]> }>;
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

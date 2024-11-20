@@ -29,7 +29,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type LookUp<U, T> = any
+// 联合类型 + extends就是相当于遍历联合类型
+// 当 extends 右边是对象时，只要是包含关系就行，不用相等
+type LookUp<U, T extends string> = U extends { type: T } ? U : never;
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -18,8 +18,7 @@
 
 /* _____________ 你的代码 _____________ */
 
-// 长见识了
-
+// 长见识了,还能这么玩
 type Space = ' ' | '\n' | '\t'
 type TrimLeft<S extends string> = S extends `${Space}${infer R}` ? TrimLeft<R> : S
 

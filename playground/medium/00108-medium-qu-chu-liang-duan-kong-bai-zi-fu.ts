@@ -18,7 +18,16 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Trim<S extends string> = any
+// method one
+// type Space = ' ' | '\n' | '\t' ;
+// type Trim<S extends string> = S extends `${Space}${infer R}` | `${infer R}${Space}` ? Trim<R> : S
+
+// method two
+// infer后的变量R，只能用于‘?’后面。
+type Space = ' ' | '\n' | '\t';
+type TrimLeft<S extends string> = S extends `${Space}${infer R}` ? TrimLeft<R> : TrimRight<S>;
+type TrimRight<S extends string> = S extends `${infer R}${Space}` ?  TrimRight<R> : S;
+type Trim<S extends string> = S extends `${Space}${infer R}` ? TrimLeft<R> : TrimRight<S>;
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

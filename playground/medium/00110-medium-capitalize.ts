@@ -18,7 +18,8 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyCapitalize<S extends string> = any
+// 内置泛型Uppercase<T>,其实就是把字符串当成数组去处理
+type MyCapitalize<S extends string> = S extends `${infer x}${infer tail}` ? `${Uppercase<x>}${tail}` : S;
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

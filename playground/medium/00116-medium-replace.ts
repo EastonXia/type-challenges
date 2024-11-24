@@ -18,7 +18,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Replace<S extends string, From extends string, To extends string> = any
+// 完美
+type Replace<S extends string, From extends string, To extends string> = From extends '' ? S
+: S extends `${infer F}${From}${infer B}` ? `${F}${To}${B}` : S
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

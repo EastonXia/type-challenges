@@ -23,7 +23,8 @@
 
 /* _____________ 你的代码 _____________ */
 
-type AppendArgument<Fn, A> = any
+// 差一点点，args的玩法
+type AppendArgument<Fn extends Function, A> = Fn extends (...args: infer ARG) => infer R ? (...args: [...ARG, A]) => R : never
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

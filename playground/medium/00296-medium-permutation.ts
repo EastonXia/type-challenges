@@ -16,7 +16,14 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Permutation<T> = any
+// [T] extends [never] 的判断是通过包装 T 以避免分布式条件类型的特性，从而确保准确判断 T 是否为 never
+// K extends K 是一种技巧，用来让 K 的每个成员依次单独通过判断（分布式特性）
+
+type Permutation<T, K = T> = [T] extends [never]
+  ? []
+  : K extends K
+    ? [K, ...Permutation<Exclude<T, K>>]
+    : never
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

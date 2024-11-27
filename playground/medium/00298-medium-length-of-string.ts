@@ -12,7 +12,11 @@
 
 /* _____________ 你的代码 _____________ */
 
-type LengthOfString<S extends string> = any
+// 很巧妙地完成了空字符串和中间有空格的处理
+// 通过转数组，然后用数组的‘length属性’
+type LengthOfString<S extends string, T extends string[] = []> = S extends `${infer F}${infer R}`
+  ? LengthOfString<R, [...T, F]>
+  : T['length']
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

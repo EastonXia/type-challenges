@@ -19,7 +19,11 @@
 
 /* _____________ 你的代码 _____________ */
 
-type AppendToObject<T, U, V> = any
+// 傻逼了，直接联合key不就行了，这都没想到
+type AppendToObject<T extends Record<string, any>, U extends keyof any, V> = {
+  [P in keyof T | U]: P extends keyof T ? T[P] : V;
+
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

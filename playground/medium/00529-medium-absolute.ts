@@ -19,7 +19,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Absolute<T extends number | string | bigint> = any
+// 把不用类型的转字符串，然后在处理字符串
+// 其实还是玩字符串
+type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer U}` ? U : `${T}`
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -28,7 +28,10 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Merge<F, S> = any
+// 双重 keyof 使用
+type Merge<F, S> = {
+  [K in keyof F | keyof S]: K extends keyof S ? S[K] : K extends keyof F ? F[K] : never;
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

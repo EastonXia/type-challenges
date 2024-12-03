@@ -24,7 +24,12 @@
 
 /* _____________ 你的代码 _____________ */
 
-type KebabCase<S> = any
+// Uncapitalize<T>, 转换第一个字母为小写字母。
+type KebabCase<S extends string> = S extends `${infer F}${infer R}`
+  ? R extends Uncapitalize<R> // 判断剩余部分的第一个字母是否为小写
+    ? `${Uncapitalize<F>}${KebabCase<R>}` // 如果是，直接拼接
+    : `${Uncapitalize<F>}-${KebabCase<R>}` // 如果不是，中间加 - 。
+  : S
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

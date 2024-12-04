@@ -27,7 +27,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Diff<O, O1> = any
+// keyof (Foo | Bar) = 'name' | 'age'
+// O & O1 = { name: string, age: string, gender: number }
+type Diff<O, O1> = Omit<O & O1, keyof (O | O1)>
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

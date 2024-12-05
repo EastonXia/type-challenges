@@ -19,7 +19,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type AnyOf<T extends readonly any[]> = any
+// 强行写完所有错误类型，个人感觉还是有点蠢，但是又没有其他办法
+type falseType = 0 | '' | false | [] | { [key: string]: never } | undefined | null
+type AnyOf<T extends readonly any[]> = T[number] extends falseType ? false : true
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -23,7 +23,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type IsNever<T> = any
+// https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+// [T] extends [never] 的判断是通过包装 T 以避免分布式条件类型的特性，从而确保准确判断 T 是否为 never
+type IsNever<T> = [T] extends [never] ? true : false
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

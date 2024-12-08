@@ -20,7 +20,12 @@
 
 /* _____________ 你的代码 _____________ */
 
-type IsUnion<T> = any
+// 这题先放一放，还没完全处理好
+type IsUnion<T, B = T> = T extends T
+  ? [Exclude<B, T>] extends [never] // 判断是否是联合类型的关键，利用 Exclude<B, T> 排除自身
+      ? false
+      : true
+  : never
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
@@ -33,7 +38,8 @@ type cases = [
   Expect<Equal<IsUnion<{ a: string } | { a: number }>, true>>,
   Expect<Equal<IsUnion<{ a: string | number }>, false>>,
   Expect<Equal<IsUnion<[string | number]>, false>>,
-  // Cases where T resolves to a non-union type.
+
+  // Cases where T resolves to a non-union type. ( 意思是这几个联合类型之间有矛盾，不能联合 )
   Expect<Equal<IsUnion<string | never>, false>>,
   Expect<Equal<IsUnion<string | unknown>, false>>,
   Expect<Equal<IsUnion<string | any>, false>>,

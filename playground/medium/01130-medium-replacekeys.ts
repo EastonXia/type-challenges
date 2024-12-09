@@ -45,7 +45,10 @@
 
 /* _____________ 你的代码 _____________ */
 
-type ReplaceKeys<U, T, Y> = any
+// 对联合类型 type ，逐个处理每个分支，最终返回替换后的联合类型。
+type ReplaceKeys<U, T, Y> = {
+  [K in keyof U]: K extends T ? K extends keyof Y ? Y[K] : never : U[K]
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

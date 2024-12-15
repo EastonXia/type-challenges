@@ -23,7 +23,11 @@
 
 /* _____________ 你的代码 _____________ */
 
-type PickByType<T, U> = any
+// K in keyof T as 表示重命名键
+// 如果不需要这个 key，就把它命名为 never
+type PickByType<T, U> = {
+  [K in keyof T as T[K] extends U ? K : never]: T[K];
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -20,7 +20,8 @@
 
 /* _____________ 你的代码 _____________ */
 
-type EndsWith<T extends string, U extends string> = any
+// 跟 startswith 思路一样
+type EndsWith<T extends string, U extends string> = T extends `${string}${U}` ? true : false
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

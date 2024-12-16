@@ -20,7 +20,8 @@
 
 /* _____________ 你的代码 _____________ */
 
-type StartsWith<T extends string, U extends string> = any
+// 被秀了，老想着玩字符串......
+type StartsWith<T extends string, U extends string> = T extends `${U}${string}` ? true : false
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

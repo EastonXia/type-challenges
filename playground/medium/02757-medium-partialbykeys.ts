@@ -26,7 +26,16 @@
 
 /* _____________ 你的代码 _____________ */
 
-type PartialByKeys<T, K> = any
+// 类型声明使用了联合类型和交叉类型后，不会像 interface 直接合并
+// 所以要定义一个类型去合并它们
+type IntersectionToObj<T> = {
+  [K in keyof T]: T[K]
+}
+type PartialByKeys<T, K extends keyof T = keyof T> = IntersectionToObj<{
+  [P in keyof T as P extends K ? P : never]?: T[P]
+} & {
+  [P in Exclude<keyof T, K>]: T[P]
+}>
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -27,7 +27,16 @@
 
 /* _____________ 你的代码 _____________ */
 
-type RequiredByKeys<T, K> = any
+type IntersectionToObj<T> = {
+  [K in keyof T]: T[K]
+}
+
+type RequiredByKeys<T, K extends keyof T = keyof T> = IntersectionToObj<{
+  [P in keyof T as P extends K ? P : never]-?: T[P];
+} & {
+  [R in keyof T as R extends K ? never : R]: T[R];
+  // [R in Exclude<keyof T, K>]?: T[R]; // 为什么不能这么写,因为 Exclude<keyof T, K> 会让 key 丢失可选性的，如果要这样写，要在冒号前面加个可选符号‘?’
+}>
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

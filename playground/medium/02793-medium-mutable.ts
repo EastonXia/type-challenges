@@ -25,7 +25,10 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Mutable<T> = any
+// 又有新东西了 ‘-readonly’
+type Mutable<T extends object> = {
+  -readonly [K in keyof T]: T[K]
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -23,7 +23,13 @@
 
 /* _____________ 你的代码 _____________ */
 
-type ObjectEntries<T> = any
+// 本题关键是把对象转换成联合类型，然后去掉去掉可选符和 Partial<T> 带来的影响
+// 数组转联合类型用 [number] 作为下标， ['1', '2']['number'] // '1' | '2'
+// 对象则是用 [keyof T] 作为下标，type ObjectToUnion<T> = T[keyof T]
+// 去掉 Partial<T>、可选符效果则是用 Required<T>
+type ObjectEntries<T> = {
+  [P in keyof Required<T>]: [P, Required<T>[P] extends never ? undefined : Required<T>[P]]
+}[keyof T]
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -18,7 +18,10 @@
 
 /* _____________ 你的代码 _____________ */
 
-type TupleToNestedObject<T, U> = any
+// PropertyKey 可以作为属性键的类型
+type TupleToNestedObject<T, U> = T extends [infer F, ...infer Rest] ? {
+  [K in F & PropertyKey]: TupleToNestedObject<[...Rest], U>
+} : U
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

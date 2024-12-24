@@ -19,7 +19,7 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Reverse<T> = any
+type Reverse<T extends any[]> = T extends [infer F, ...infer Rest] ? [...Reverse<Rest>, F] : []
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

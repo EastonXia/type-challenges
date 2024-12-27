@@ -21,7 +21,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type FlipArguments<T> = any
+// 玩函数的 args 相当于玩数组
+type Reverse<T extends any[]> = T extends [infer F, ...infer Rest] ? [...Reverse<Rest>, F] : []
+type FlipArguments<T extends (...args: any[]) => any> = T extends (...args: infer P) => infer R ? (...args: Reverse<P>) => R : never
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

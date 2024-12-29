@@ -16,7 +16,8 @@
 
 /* _____________ 你的代码 _____________ */
 
-type BEM<B extends string, E extends string[], M extends string[]> = any
+// 此处不用 extends 进行联合类型的输出，直接从结果上加 E[number] M[number] 进行联合类型的输出
+type BEM<B extends string, E extends string[], M extends string[]> = `${B}${E extends [] ? '' : `__${E[number]}`}${M extends [] ? '' : `--${M[number]}`}`
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

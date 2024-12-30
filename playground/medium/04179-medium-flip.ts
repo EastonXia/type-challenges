@@ -20,7 +20,10 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Flip<T> = any
+// 把 key 全部转成字符串
+type Flip<T extends Record<string, any>> = {
+  [P in keyof T as `${T[P]}`]: P
+}
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect, NotEqual } from '@type-challenges/utils'

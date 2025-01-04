@@ -21,7 +21,15 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Fibonacci<T extends number> = any
+// 答案解析 https://github.com/type-challenges/type-challenges/issues/16384
+// No 表示当前的计算到那个数
+// N_2 表示当前 n-2 的结果
+// N_1 表示当前 n-1 的结果
+type Fibonacci<T extends number, No extends 1[] = [1, 1, 1], N_2 extends 1[] = [1], N_1 extends 1[] = [1]> = T extends 1 | 2
+  ? 1
+  : T extends No['length']
+    ? [...N_2, ...N_1]['length']
+    : Fibonacci<T, [...No, 1], N_1, [...N_2, ...N_1]>
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

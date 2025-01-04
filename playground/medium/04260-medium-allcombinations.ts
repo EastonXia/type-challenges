@@ -19,7 +19,20 @@
 
 /* _____________ 你的代码 _____________ */
 
-type AllCombinations<S> = any
+// 问题解答：https://github.com/type-challenges/type-challenges/issues/16430
+
+// 字符串转联合类型
+type StringToUnion<S> = S extends `${infer F}${infer R}` ? F | StringToUnion<R> : S
+
+type AllCombinations<
+  S extends string,
+  T extends string = StringToUnion<S>,
+  U extends string = T,
+> = S extends `${infer F}${infer R}` // 判断是否为空字符串，每次 S 会删掉一个字符
+  ? U extends U
+    ? `${U}${AllCombinations<R, U extends '' ? T : Exclude<T, U>>}`
+    : never
+  : ''
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

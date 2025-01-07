@@ -25,7 +25,12 @@
 
 /* _____________ 你的代码 _____________ */
 
-type GreaterThan<T extends number, U extends number> = any
+// 先用数组不断递归添加元素，表示值的大小
+// 在把两个数组前后 extends 用于比较长度
+// 如果 B 大于 A ,则可以用 [...A, ..._] 表示
+// 如果需要处理大数，则要从字符串的思路去做了，此处不考虑
+type ArrayWithLength<T extends number, U extends any[] = []> = U['length'] extends T ? U : ArrayWithLength<T, [true, ...U]>
+type GreaterThan<T extends number, U extends number> = ArrayWithLength<U> extends [...ArrayWithLength<T>, ...infer _] ? false : true
 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
